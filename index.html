@@ -3,486 +3,449 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZeroDayAcademy - PowerShell Bandit Lvl 1</title>
+    <title>ZeroDay Academy - PowerShell Bandit Lvl 0</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Courier New', Courier, monospace;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background-color: #0d1117; 
+            color: #c9d1d9; 
+            font-family: 'Segoe UI', sans-serif; 
+            padding: 20px; 
+            min-height: 100vh;
         }
-        body {
-            background-color: #0b0c10;
-            color: #66fcf1;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            overflow: hidden;
+        
+        .container { 
+            max-width: 1400px; 
+            margin: 0 auto; 
+            display: grid; 
+            grid-template-columns: 450px 1fr; 
+            gap: 25px; 
         }
-        .header {
-            padding: 15px 30px;
-            border-bottom: 2px solid #1f2833;
-            background-color: #0b0c10;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        
+        @media (max-width: 1000px) { 
+            .container { grid-template-columns: 1fr; } 
         }
-        .header h1 {
-            color: #95ed19;
-            font-size: 22px;
+        
+        .header-full { 
+            grid-column: 1 / -1; 
+            border-bottom: 1px solid #30363d; 
+            padding-bottom: 15px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
         }
-        .header p {
+        
+        .back-link { 
+            color: #58a6ff; 
+            text-decoration: none; 
+            font-size: 14px; 
+        }
+        
+        .tutorial-panel { 
+            background-color: #161b22; 
+            border: 1px solid #30363d; 
+            border-radius: 8px; 
+            padding: 25px; 
+            height: 600px; 
+            overflow-y: auto; 
+        }
+        
+        .level-badge { 
+            background-color: #0066cc; 
+            color: #fff; 
+            padding: 4px 12px; 
+            border-radius: 20px; 
+            font-weight: bold; 
+            font-size: 14px; 
+        }
+        
+        .badge-code { 
+            background-color: #21262d; 
+            color: #ff7b72; 
+            padding: 2px 6px; 
+            border-radius: 4px; 
+            font-family: 'Consolas', monospace; 
             font-size: 13px;
-            color: #45f3ff;
         }
-        .container {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
+        
+        .mission-box { 
+            background-color: #1f242c; 
+            padding: 15px; 
+            border-left: 4px solid #0066cc; 
+            border-radius: 0 6px 6px 0; 
+            margin: 15px 0; 
         }
-        .left-content {
-            flex: 1;
-            padding: 25px 30px;
-            overflow-y: auto;
-            border-right: 2px solid #1f2833;
-        }
-        .right-content {
-            flex: 1.2;
-            padding: 25px 30px;
-            display: flex;
-            flex-direction: column;
-            background-color: #0b0c10;
-        }
-        .lab-section {
-            background-color: #1f2833;
-            border: 1px solid #1f2833;
-            padding: 20px;
-            border-radius: 4px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
-            margin-bottom: 20px;
-        }
-        .lab-section.active-border {
-            border-color: #45f3ff;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-        .lab-section h2 {
-            color: #95ed19;
-            font-size: 16px;
-            margin-bottom: 12px;
-            text-transform: uppercase;
-            border-bottom: 1px dashed #95ed19;
-            padding-bottom: 5px;
-        }
-        .mission-box {
-            background-color: #0b0c10;
-            padding: 12px;
-            border-left: 4px solid #45f3ff;
-            margin: 10px 0;
-            font-size: 13px;
-            line-height: 1.4;
-        }
-        .data-table {
+        
+        .cmd-table {
             width: 100%;
             border-collapse: collapse;
-            background-color: #0b0c10;
-            margin-top: 10px;
+            margin-top: 15px;
+            font-size: 13px;
         }
-        .data-table th, .data-table td {
-            border: 1px solid #1f2833;
+        
+        .cmd-table th, .cmd-table td {
+            border: 1px solid #30363d;
             padding: 8px;
             text-align: left;
-            font-size: 12px;
         }
-        .data-table th {
-            background-color: #1f2833;
-            color: #95ed19;
-            text-transform: uppercase;
+        
+        .cmd-table th {
+            background-color: #21262d;
+            color: #58a6ff;
         }
-        .data-table code {
-            color: #45f3ff;
-            font-weight: bold;
+        
+        .cmd-table tr:nth-child(even) {
+            background-color: #1f242c;
         }
-        .terminal-container {
-            background-color: #012456;
-            border: 1px solid #45f3ff;
-            border-radius: 4px;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            overflow: hidden;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+        
+        .terminal-container { 
+            background-color: #012456; 
+            border: 2px solid #30363d; 
+            border-radius: 6px; 
+            font-family: 'Consolas', monospace; 
+            display: flex; 
+            flex-direction: column; 
+            height: 600px; 
         }
-        .terminal-header {
-            background-color: #08316a;
-            padding: 6px 12px;
-            color: #ffffff;
-            font-size: 11px;
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid #1f2833;
+        
+        .terminal-header { 
+            background-color: #08316a; 
+            padding: 8px 12px; 
+            color: #fff; 
+            font-size: 12px; 
+            display: flex; 
+            justify-content: space-between; 
         }
-        .terminal-body {
-            padding: 15px;
-            flex: 1;
-            overflow-y: auto;
-            color: #eeedf0;
-            font-size: 13px;
-            line-height: 1.5;
+        
+        .terminal-body { 
+            padding: 15px; 
+            flex-grow: 1; 
+            overflow-y: auto; 
+            color: #eeedf0; 
+            font-size: 14px; 
         }
-        .output-line {
-            white-space: pre-wrap;
-            margin-bottom: 6px;
+        
+        .output-line { 
+            white-space: pre-wrap; 
+            margin-bottom: 8px; 
         }
-        .input-line {
-            display: flex;
-            align-items: center;
+        
+        .input-line { 
+            display: flex; 
+            align-items: center; 
         }
-        .prompt {
-            color: #95ed19;
-            margin-right: 6px;
-            white-space: nowrap;
+        
+        .prompt { 
+            color: #95ed19; 
+            margin-right: 8px; 
+            white-space: nowrap; 
         }
-        .terminal-input {
-            background: transparent;
-            border: none;
-            color: #fff;
-            font-family: inherit;
-            font-size: inherit;
-            width: 100%;
-            outline: none;
+        
+        .terminal-input { 
+            background: transparent; 
+            border: none; 
+            color: #eeedf0; 
+            font-family: inherit; 
+            font-size: inherit; 
+            width: 100%; 
+            outline: none; 
         }
-        .badge-code {
-            background-color: #0b0c10;
-            color: #95ed19;
-            padding: 1px 4px;
-            border: 1px solid #1f2833;
+        
+        .success { color: #2ea44f; font-weight: bold; }
+        .error { color: #ff7b72; }
+        .info { color: #58a6ff; }
+        
+        .submit-box {
+            background-color: #1f242c;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 20px;
+            border: 1px dashed #58a6ff;
         }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>POWERSHELL BANDIT — SISTEMA DE TREINAMENTO</h1>
-        <p>Sessão: operator_lvl0@zerodayacademy</p>
+<div class="container">
+    <div class="header-full">
+        <div>
+            <p><a href="#" class="back-link">← ZeroDay Academy</a></p>
+            <h1 style="color: #58a6ff; margin: 5px 0 0 0;">PowerShell Bandit — Nível 0</h1>
+        </div>
+        <div><span class="level-badge">Nível 0</span></div>
     </div>
 
-    <div class="container">
-        <div class="left-content">
-            <div class="lab-section">
-                <h2>[ Nível 01: Reconhecimento Inicial ]</h2>
-                <div class="mission-box">
-                    <strong>🎯 OBJETIVO:</strong><br>
-                    Um arquivo confidencial contendo um segredo de acesso foi ocultado no diretório atual ou em subpastas. Utilize as ferramentas do PowerShell para navegar, ler dados ocultos, listar serviços ou processos e submeter a chave encontrada.
-                </div>
-                <p style="font-size: 12px; color: #45f3ff;">
-                    💡 Dica: Explore parâmetros como <span class="badge-code">-Force</span> e verifique os arquivos usando filtros. Para validar, use: <span class="badge-code">Submit-Flag VALOR</span>
-                </p>
-            </div>
-
-            <div class="lab-section">
-                <h2>[ Matriz de Referência Operacional ]</h2>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th style="width: 40%;">Comando / Alias</th>
-                            <th>Ação no Terminal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td><code>Get-Location</code> / <code>pwd</code></td><td>Verifica o diretório de trabalho atual.</td></tr>
-                        <tr><td><code>Set-Location</code> / <code>cd</code></td><td>Navega entre estruturas de pastas.</td></tr>
-                        <tr><td><code>Get-ChildItem</code> / <code>ls</code></td><td>Lista os arquivos comuns (ou ocultos com -Force).</td></tr>
-                        <tr><td><code>Get-Content</code> / <code>cat</code></td><td>Mostra informações dentro de arquivos de texto.</td></tr>
-                        <tr><td><code>Select-String</code> / <code>grep</code></td><td>Filtra strings específicas em arquivos.</td></tr>
-                        <tr><td><code>Get-Process</code> / <code>ps</code></td><td>Analisa processos em execução na máquina.</td></tr>
-                        <tr><td><code>Get-Service</code></td><td>Verifica serviços instalados no ecossistema.</td></tr>
-                        <tr><td><code>Get-Command</code></td><td>Exibe recursos utilizáveis mapeados.</td></tr>
-                        <tr><td><code>Get-Help</code> / <code>man</code></td><td>Invoca a ajuda operacional.</td></tr>
-                        <tr><td><code>New-Item</code> / <code>mkdir</code></td><td>Gera novos arquivos ou diretórios locais.</td></tr>
-                        <tr><td><code>Copy-Item</code> / <code>cp</code></td><td>Clona artefatos para outras estruturas.</td></tr>
-                        <tr><td><code>Move-Item</code> / <code>mv</code></td><td>Move ou renomeia itens do disco.</td></tr>
-                        <tr><td><code>Remove-Item</code> / <code>rm</code></td><td>Remove do armazenamento de forma definitiva.</td></tr>
-                        <tr><td><code>Clear-Host</code> / <code>cls</code></td><td>Limpa os buffers da tela ativa.</td></tr>
-                        <tr><td><code>Get-History</code></td><td>Verifica os comandos executados na sessão.</td></tr>
-                    </tbody>
-                </table>
-            </div>
+    <div class="tutorial-panel">
+        <h2 style="color: #0066cc; margin-top:0;">📚 Teoria: Comandos Essenciais</h2>
+        
+        <div class="mission-box">
+            <strong>🎯 Missão:</strong><br>
+            Explore o sistema de arquivos. Use os comandos para navegar, listar e ler arquivos. 
+            Encontre o arquivo oculto e submeta a flag com <span class="badge-code">Submit-Flag VALOR</span>.
         </div>
 
-        <div class="right-content">
-            <div class="lab-section active-border">
-                <h2>[ Terminal Interativo de Simulação ]</h2>
-                <div class="terminal-container" id="terminalArea">
-                    <div class="terminal-header">
-                        <span>Windows PowerShell - Emulação Segura</span>
-                        <span>[v1.0.26]</span>
-                    </div>
-                    <div class="terminal-body" id="terminalBody">
-                        <div class="output-line">Windows PowerShell</div>
-                        <div class="output-line">Copyright (C) Microsoft Corporation. Todos os direitos reservados.</div>
-                        <div class="output-line">Módulos de auditoria carregados. Digite 'Get-Help' para instruções.</div>
-                        <br>
-                        <div class="input-line">
-                            <span class="prompt" id="currentPrompt">PS C:\Users\Operator\Documents></span>
-                            <input type="text" class="terminal-input" id="terminalInput" autofocus autocomplete="off">
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <h3 style="color: #58a6ff; margin-top: 20px;">15 Comandos PowerShell</h3>
+        
+        <table class="cmd-table">
+            <tr><th>Comando</th><th>Descrição</th></tr>
+            <tr><td><span class="badge-code">Get-Location / pwd</span></td><td>Mostra diretório atual</td></tr>
+            <tr><td><span class="badge-code">Set-Location / cd</span></td><td>Navega entre pastas</td></tr>
+            <tr><td><span class="badge-code">Get-ChildItem / ls</span></td><td>Lista arquivos</td></tr>
+            <tr><td><span class="badge-code">Get-Content / cat</span></td><td>Lê conteúdo de arquivo</td></tr>
+            <tr><td><span class="badge-code">Select-String / grep</span></td><td>Busca texto</td></tr>
+            <tr><td><span class="badge-code">Get-Process / ps</span></td><td>Lista processos</td></tr>
+            <tr><td><span class="badge-code">Get-Service</span></td><td>Lista serviços</td></tr>
+            <tr><td><span class="badge-code">Get-Command</span></td><td>Lista comandos</td></tr>
+            <tr><td><span class="badge-code">Get-Help / help</span></td><td>Ajuda do sistema</td></tr>
+            <tr><td><span class="badge-code">New-Item / mkdir</span></td><td>Cria arquivos/pastas</td></tr>
+            <tr><td><span class="badge-code">Copy-Item / cp</span></td><td>Copia arquivos</td></tr>
+            <tr><td><span class="badge-code">Move-Item / mv</span></td><td>Move arquivos</td></tr>
+            <tr><td><span class="badge-code">Remove-Item / rm</span></td><td>Remove arquivos</td></tr>
+            <tr><td><span class="badge-code">Clear-Host / cls</span></td><td>Limpa tela</td></tr>
+            <tr><td><span class="badge-code">Get-History</span></td><td>Histórico</td></tr>
+        </table>
+
+        <div class="submit-box">
+            🔐 <strong>Validação:</strong><br>
+            <span style="color: #58a6ff; font-family: monospace;">Submit-Flag CTF{...}</span><br>
+            <small style="color: #8b949e;">A flag só existe no servidor!</small>
         </div>
     </div>
 
-    <script>
-        // ── MOTOR DE SIMULAÇÃO DO SISTEMA DE ARQUIVOS (MEMÓRIA LOCAL) ────────────
-        let currentDir = 'Documents';
-        let historyCommands = [];
-        let historyIndex = -1;
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <span>Windows PowerShell</span>
+            <span>operator@zeroday</span>
+        </div>
+        <div class="terminal-body" id="terminalBody">
+            <div class="output-line info">ZeroDay Academy - PowerShell Training</div>
+            <div class="output-line">Dica: Digite 'help' para ver comandos disponíveis.</div>
+            <br>
+            <div class="input-line">
+                <span class="prompt" id="currentPrompt">PS C:\Users\Level0\Documents></span>
+                <input type="text" class="terminal-input" id="terminalInput" autofocus autocomplete="off">
+            </div>
+        </div>
+    </div>
+</div>
 
-        const fileSystem = {
-            'Documents': {
-                'readme.txt': 'Aviso de monitoramento ativado. Procure credenciais em arquivos ocultos.',
-                'notas.bak': 'Backup temporário: A chave mestra não está aqui, tente verificar fluxos ocultos.',
-                '.secret_flag.conf': 'CTF{p0w3rsh3ll_m4st3r_2026}'
-            },
-            'Downloads': {
-                'config.xml': '<config><user>operator</user></config>'
-            }
-        };
+<script>
+// Sistema de arquivos simulado (apenas para prática)
+const fileSystem = {
+    'Documents': {
+        'readme.txt': 'Sistema de treinamento PowerShell.\nDica: Procure arquivos ocultos com ls -Force',
+        'notas.md': 'A flag está em um arquivo oculto.',
+        '.hidden': 'Arquivo oculto! Procure por "flag" no nome.',
+        '.flag.txt': 'A flag está no servidor. Use Submit-Flag.'
+    }
+};
 
-        const activeProcesses = 
-            "Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName\n" +
-            "-------  ------    -----      -----     ------     --  -- -----------\n" +
-            "    432      28    45120      54210       1.24   1024   1 lsass\n" +
-            "    890      42    98210     112450       4.12   2048   1 svchost\n" +
-            "    120      12     4120       8940       0.05   4312   1 powershell";
+let currentDir = 'Documents';
+let history = [];
+let histIdx = -1;
 
-        const activeServices =
-            "Status   Name               DisplayName\n" +
-            "------   ----               -----------\n" +
-            "Running  WinRM              Windows Remote Management (WS-Management)\n" +
-            "Stopped  wuauserv           Windows Update\n" +
-            "Running  ZeroDayAudit       ZeroDay Academy Core Security Monitor";
+const input = document.getElementById('terminalInput');
+const body = document.getElementById('terminalBody');
+const prompt = document.getElementById('currentPrompt');
 
-        const terminalInput = document.getElementById('terminalInput');
-        const terminalBody = document.getElementById('terminalBody');
-        const currentPrompt = document.getElementById('currentPrompt');
-        const terminalArea = document.getElementById('terminalArea');
+document.querySelector('.terminal-container').addEventListener('click', () => input.focus());
 
-        // Foco automático ao clicar na área do terminal
-        terminalArea.addEventListener('click', () => terminalInput.focus());
+function addOutput(text, isHtml = false) {
+    const line = document.createElement('div');
+    line.className = 'output-line';
+    line[isHtml ? 'innerHTML' : 'innerText'] = text;
+    body.insertBefore(line, body.querySelector('.input-line'));
+}
 
-        function appendOutput(text, isHtml = false) {
-            const inputLine = terminalBody.querySelector('.input-line');
-            const div = document.createElement('div');
-            div.className = 'output-line';
-            if (isHtml) div.innerHTML = text; else div.innerText = text;
-            terminalBody.insertBefore(div, inputLine);
+function echoCmd(cmd) {
+    const div = document.createElement('div');
+    div.className = 'output-line';
+    div.innerHTML = `<span class="prompt">PS C:\\Users\\Level0\\${currentDir}></span> ${cmd}`;
+    body.insertBefore(div, body.querySelector('.input-line'));
+}
+
+input.addEventListener('keydown', async function(e) {
+    if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (histIdx < history.length - 1) {
+            histIdx++;
+            input.value = history[histIdx];
         }
+        return;
+    }
+    if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        histIdx = histIdx > 0 ? histIdx - 1 : -1;
+        input.value = histIdx >= 0 ? history[histIdx] : '';
+        return;
+    }
+    if (e.key !== 'Enter') return;
 
-        function duplicatePrompt(cmd) {
-            const inputLine = terminalBody.querySelector('.input-line');
-            const div = document.createElement('div');
-            div.className = 'output-line';
-            div.innerHTML = `<span class="prompt">PS C:\\Users\\Operator\\${currentDir}&gt;</span> ${cmd}`;
-            terminalBody.insertBefore(div, inputLine);
+    const fullCmd = input.value.trim();
+    input.value = '';
+    if (!fullCmd) return;
+    
+    history.unshift(fullCmd);
+    histIdx = -1;
+    echoCmd(fullCmd);
+
+    const tokens = fullCmd.split(/\s+/);
+    const cmd = tokens[0].toLowerCase();
+    const args = tokens.slice(1);
+    const lower = fullCmd.toLowerCase();
+
+    // Comandos do sistema de arquivos
+    if (cmd === 'pwd' || cmd === 'get-location') {
+        addOutput(`Path\n----\nC:\\Users\\Level0\\${currentDir}`);
+    }
+    else if (cmd === 'cd' || cmd === 'set-location') {
+        const target = args[0];
+        if (!target || target === '.') {
+            addOutput(`C:\\Users\\Level0\\${currentDir}`);
+        } else if (target === '..') {
+            currentDir = 'Documents';
+            prompt.innerText = `PS C:\\Users\\Level0\\${currentDir}>`;
+        } else if (fileSystem[target]) {
+            currentDir = target;
+            prompt.innerText = `PS C:\\Users\\Level0\\${currentDir}>`;
+        } else {
+            addOutput(`Set-Location: Caminho '${target}' não existe.`);
         }
-
-        terminalInput.addEventListener('keydown', async function(e) {
-            if (e.key === 'ArrowUp') {
-                e.preventDefault();
-                if (historyIndex < historyCommands.length - 1) {
-                    historyIndex++;
-                    terminalInput.value = historyCommands[historyIndex];
-                }
-                return;
-            }
-            if (e.key === 'ArrowDown') {
-                e.preventDefault();
-                if (historyIndex > 0) {
-                    historyIndex--;
-                    terminalInput.value = historyCommands[historyIndex];
-                } else {
-                    historyIndex = -1;
-                    terminalInput.value = '';
-                }
-                return;
-            }
-            if (e.key !== 'Enter') return;
-
-            const fullCmd = terminalInput.value.trim();
-            terminalInput.value = '';
-
-            if (!fullCmd) return;
-
-            historyCommands.unshift(fullCmd);
-            historyIndex = -1;
-            duplicatePrompt(fullCmd);
-
-            // Parsing simples de comandos
-            const tokens = fullCmd.split(/\s+/);
-            const baseCmd = tokens[0].toLowerCase();
-            const args = tokens.slice(1);
-            const lowerFull = fullCmd.toLowerCase();
-
-            // ── PROCESSADOR DE LOGICA DOS 15 COMANDOS ──────────────────────────
-            
-            // 1. Get-Location / pwd
-            if (baseCmd === 'pwd' || baseCmd === 'get-location') {
-                appendOutput(`Path\n----\nC:\\Users\\Operator\\${currentDir}`);
-            }
-            // 2. Set-Location / cd
-            else if (baseCmd === 'cd' || baseCmd === 'set-location') {
-                const target = args[0];
-                if (!target || target === '.' || target === '..') {
-                    currentDir = 'Documents';
-                    currentPrompt.innerText = `PS C:\\Users\\Operator\\${currentDir}>`;
-                } else if (fileSystem[target] || (target.toLowerCase() === 'downloads' && (currentDir = 'Downloads'))) {
-                    currentDir = target === 'Downloads' ? 'Downloads' : 'Documents';
-                    currentPrompt.innerText = `PS C:\\Users\\Operator\\${currentDir}>`;
-                } else {
-                    appendOutput(`Set-Location: Não foi possível localizar o caminho '${target}' porque ele não existe.`);
-                }
-            }
-            // 3. Get-ChildItem / ls
-            else if (baseCmd === 'ls' || baseCmd === 'get-childitem' || baseCmd === 'dir') {
-                const hasForce = lowerFull.includes('-force');
-                let files = fileSystem[currentDir];
-                let out = `    Diretório: C:\\Users\\Operator\\${currentDir}\n\nMode                LastWriteTime         Length Name\n----                -------------         ------ -----\n`;
-                
-                let foundAny = false;
-                for (const file in files) {
-                    if (file.startsWith('.') && !hasForce) continue;
-                    out += `-a----       19/06/2026     11:00             52 ${file}\n`;
-                    foundAny = true;
-                }
-                appendOutput(out);
-            }
-            // 4. Get-Content / cat
-            else if (baseCmd === 'cat' || baseCmd === 'get-content' || baseCmd === 'type') {
-                const filename = args.join(' ');
-                if (!filename) {
-                    appendOutput("Get-Content: Forneça o nome do arquivo.");
-                } else if (fileSystem[currentDir][filename]) {
-                    appendOutput(fileSystem[currentDir][filename]);
-                } else {
-                    appendOutput(`Get-Content: Não foi possível encontrar o arquivo '${filename}'.`);
-                }
-            }
-            // 5. Select-String / grep
-            else if (baseCmd === 'select-string' || baseCmd === 'grep') {
-                if (args.length < 2) {
-                    appendOutput("Uso: Select-String -Pattern 'termo' -Path 'arquivo'");
-                } else {
-                    const pattern = args[0].replace(/['"-]/g, '');
-                    const file = args[1];
-                    if (fileSystem[currentDir][file]) {
-                        const content = fileSystem[currentDir][file];
-                        if (content.toLowerCase().includes(pattern.toLowerCase())) {
-                            appendOutput(`${file}:1: ${content}`);
-                        } else {
-                            appendOutput("");
-                        }
-                    } else {
-                        appendOutput("Arquivo não encontrado.");
-                    }
-                }
-            }
-            // 6. Get-Process / ps
-            else if (baseCmd === 'ps' || baseCmd === 'get-process') {
-                appendOutput(activeProcesses);
-            }
-            // 7. Get-Service
-            else if (baseCmd === 'get-service') {
-                appendOutput(activeServices);
-            }
-            // 8. Get-Command
-            else if (baseCmd === 'get-command') {
-                appendOutput("CommandType     Name\n-----------     ----\nCmdlet          Get-ChildItem\nCmdlet          Get-Content\nCmdlet          Get-Service\nCmdlet          Get-Process\nFunction        Submit-Flag");
-            }
-            // 9. Get-Help / man
-            else if (baseCmd === 'man' || baseCmd === 'get-help' || baseCmd === 'help') {
-                appendOutput("SISTEMA DE AUDITORIA POWERSHELL\nUse comandos como ls, cat, pwd, ps para inspecionar o contêiner.\nEnvie resultados usando: Submit-Flag VALOR");
-            }
-            // 10. New-Item / mkdir
-            else if (baseCmd === 'mkdir' || baseCmd === 'new-item') {
-                const name = args.join(' ');
-                if (name) {
-                    fileSystem[currentDir][name] = "Arquivo criado pelo usuário.";
-                    appendOutput(`    Diretório: C:\\Users\\Operator\\${currentDir}\n\nMode                LastWriteTime         Length Name\n----                -------------         ------ -----\nd----       19/06/2026     11:15                ${name}`);
-                }
-            }
-            // 11. Copy-Item / cp
-            else if (baseCmd === 'cp' || baseCmd === 'copy-item') {
-                if (args[0] && fileSystem[currentDir][args[0]]) {
-                    fileSystem[currentDir][args[1] || 'copia_arquivo'] = fileSystem[currentDir][args[0]];
-                    appendOutput("[+] Item duplicado com sucesso.");
-                } else {
-                    appendOutput("Arquivo de origem ausente.");
-                }
-            }
-            // 12. Move-Item / mv
-            else if (baseCmd === 'mv' || baseCmd === 'move-item') {
-                if (args[0] && fileSystem[currentDir][args[0]] && args[1]) {
-                    fileSystem[currentDir][args[1]] = fileSystem[currentDir][args[0]];
-                    delete fileSystem[currentDir][args[0]];
-                    appendOutput("[+] Item movido/renomeado.");
-                } else {
-                    appendOutput("Parâmetros inválidos.");
-                }
-            }
-            // 13. Remove-Item / rm
-            else if (baseCmd === 'rm' || baseCmd === 'remove-item') {
-                if (args[0] && fileSystem[currentDir][args[0]]) {
-                    delete fileSystem[currentDir][args[0]];
-                    appendOutput("[-] Arquivo removido da memória volátil.");
-                } else {
-                    appendOutput("Arquivo inexistente.");
-                }
-            }
-            // 14. Clear-Host / cls
-            else if (baseCmd === 'cls' || baseCmd === 'clear' || baseCmd === 'clear-host') {
-                terminalBody.querySelectorAll('.output-line').forEach(line => line.remove());
-            }
-            // 15. Get-History
-            else if (baseCmd === 'get-history') {
-                let out = "  Id CommandLine\n  -- -----------\n";
-                historyCommands.forEach((c, idx) => { out += `   ${idx + 1} ${c}\n`; });
-                appendOutput(out);
-            }
-            // VALIDAÇÃO DA FLAG VINCULADA AO BACKEND PYTHON
-            else if (baseCmd === 'submit-flag') {
-                const flagValue = args.join(' ');
-                if (!flagValue) {
-                    appendOutput("[-] Erro: Forneça a flag. Uso: Submit-Flag CTF{...}");
-                } else {
-                    appendOutput("[*] Encaminhando token para verificação criptográfica...");
-                    
-                    try {
-                        const res = await fetch('/api/check-flag', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ flag: flagValue })
-                        });
-                        const data = await res.json();
-
-                        if (data.success) {
-                            appendOutput(`<span style="color:#95ed19; font-weight:bold;">[+] SUCESSO: ${data.message}</span>`, true);
-                        } else {
-                            appendOutput(`<span style="color:#ff5555;">[-] NEGADO: ${data.message}</span>`, true);
-                        }
-                    } catch {
-                        appendOutput("<span style='color:#ff5555;'>[!] ERRO: Falha ao alcançar a API de validação.</span>", true);
-                    }
-                }
+    }
+    else if (cmd === 'ls' || cmd === 'get-childitem' || cmd === 'dir') {
+        const showHidden = lower.includes('-force') || lower.includes('-a');
+        let out = `    Diretório: C:\\Users\\Level0\\${currentDir}\n\n`;
+        out += `Mode                LastWriteTime         Length Name\n`;
+        out += `----                -------------         ------ ----\n`;
+        
+        for (const [name, content] of Object.entries(fileSystem[currentDir])) {
+            if (name.startsWith('.') && !showHidden) continue;
+            out += `-a----       19/06/2026     11:00    ${content.length.toString().padStart(10)} ${name}\n`;
+        }
+        addOutput(out);
+    }
+    else if (cmd === 'cat' || cmd === 'get-content' || cmd === 'type') {
+        const fname = args.join(' ');
+        if (!fname) addOutput("Get-Content: Forneça o nome do arquivo.");
+        else if (fileSystem[currentDir][fname]) addOutput(fileSystem[currentDir][fname]);
+        else addOutput(`Get-Content: Arquivo '${fname}' não encontrado.`);
+    }
+    else if (cmd === 'grep' || cmd === 'select-string') {
+        if (args.length < 2) {
+            addOutput("Uso: Select-String -Pattern 'termo' -Path 'arquivo'");
+        } else {
+            const pattern = args[0].replace(/['"]/g, '');
+            const fname = args[args.length - 1];
+            if (fileSystem[currentDir][fname]) {
+                const content = fileSystem[currentDir][fname];
+                addOutput(content.toLowerCase().includes(pattern.toLowerCase()) ? 
+                    `${fname}:1: ${content}` : "(nenhum resultado)");
             } else {
-                appendOutput(`'${baseCmd}' não é reconhecido como um cmdlet, função ou programa operável. Tente 'Get-Help'.`);
+                addOutput(`Arquivo '${fname}' não encontrado.`);
             }
+        }
+    }
+    else if (cmd === 'ps' || cmd === 'get-process') {
+        addOutput("Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  ProcessName\n" +
+                  "-------  ------    -----      -----     ------     --  -----------\n" +
+                  "    432      28    45120      54210       1.24   1024  lsass\n" +
+                  "    890      42    98210     112450       4.12   2048  svchost\n" +
+                  "    120      12     4120       8940       0.05   4312  powershell");
+    }
+    else if (cmd === 'get-service') {
+        addOutput("Status   Name               DisplayName\n" +
+                  "------   ----               -----------\n" +
+                  "Running  WinRM              Windows Remote Management\n" +
+                  "Running  ZeroDayAudit       ZeroDay Security Monitor\n" +
+                  "Stopped  wuauserv           Windows Update");
+    }
+    else if (cmd === 'get-command') {
+        addOutput("CommandType     Name                      Version\n" +
+                  "-----------     ----                      -------\n" +
+                  "Cmdlet          Get-ChildItem             7.0.0.0\n" +
+                  "Cmdlet          Get-Content               7.0.0.0\n" +
+                  "Function        Submit-Flag               1.0.0");
+    }
+    else if (cmd === 'help' || cmd === 'man' || cmd === 'get-help') {
+        addOutput("Comandos: pwd, cd, ls, cat, grep, ps, Get-Service, Get-Command\n" +
+                  "          mkdir, cp, mv, rm, cls, Get-History, Submit-Flag\n\n" +
+                  "Dica: Use 'ls -Force' para ver arquivos ocultos.");
+    }
+    else if (cmd === 'mkdir' || cmd === 'new-item') {
+        const name = args.join(' ');
+        if (name) {
+            fileSystem[currentDir][name] = "Conteúdo criado.";
+            addOutput(`d----  19/06/2026   11:00                ${name}`);
+        } else addOutput("New-Item: Especifique o nome.");
+    }
+    else if (cmd === 'cp' || cmd === 'copy-item') {
+        if (args[0] && fileSystem[currentDir][args[0]]) {
+            const dest = args[1] || 'copia_' + args[0];
+            fileSystem[currentDir][dest] = fileSystem[currentDir][args[0]];
+            addOutput(`[+] Copiado: ${args[0]} -> ${dest}`);
+        } else addOutput("Copy-Item: Arquivo não encontrado.");
+    }
+    else if (cmd === 'mv' || cmd === 'move-item') {
+        if (args[0] && args[1] && fileSystem[currentDir][args[0]]) {
+            fileSystem[currentDir][args[1]] = fileSystem[currentDir][args[0]];
+            delete fileSystem[currentDir][args[0]];
+            addOutput(`[+] Movido: ${args[0]} -> ${args[1]}`);
+        } else addOutput("Move-Item: Parâmetros inválidos.");
+    }
+    else if (cmd === 'rm' || cmd === 'remove-item') {
+        if (args[0] && fileSystem[currentDir][args[0]]) {
+            delete fileSystem[currentDir][args[0]];
+            addOutput(`[-] Removido: ${args[0]}`);
+        } else addOutput(`Remove-Item: '${args[0]}' não encontrado.`);
+    }
+    else if (cmd === 'cls' || cmd === 'clear' || cmd === 'clear-host') {
+        body.querySelectorAll('.output-line').forEach(l => l.remove());
+    }
+    else if (cmd === 'get-history') {
+        let out = "  Id CommandLine\n  -- -----------\n";
+        history.forEach((c, i) => out += `   ${i+1} ${c}\n`);
+        addOutput(out);
+    }
+    // ═══════════════════════════════════════════════════════════════════════
+    // VALIDAÇÃO DA FLAG NO BACKEND (SEGURANÇA!)
+    // ═══════════════════════════════════════════════════════════════════════
+    else if (cmd === 'submit-flag') {
+        const flagValue = args.join(' ');
+        if (!flagValue) {
+            addOutput(`<span class="error">[-] Uso: Submit-Flag CTF{...}</span>`, true);
+        } else {
+            addOutput("[*] Validando no servidor...");
+            
+            try {
+                const res = await fetch('/api/check-flag', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ flag: flagValue, level: 'lvl0' })
+                });
+                
+                const data = await res.json();
+                
+                if (data.success) {
+                    addOutput(`<span class="success">[+] ${data.message}</span>`, true);
+                    setTimeout(() => {
+                        if (data.next_level) window.location.href = data.next_level;
+                    }, 1500);
+                } else {
+                    addOutput(`<span class="error">[-] ${data.message}</span>`, true);
+                }
+            } catch (err) {
+                addOutput(`<span class="error">[!] Erro: ${err.message}</span>`, true);
+            }
+        }
+    }
+    else {
+        addOutput(`<span class="error">'${cmd}' não reconhecido. Tente 'help'.</span>`, true);
+    }
 
-            // Scroll automático para acompanhar o terminal
-            terminalBody.scrollTop = terminalBody.scrollHeight;
-        });
-    </script>
+    body.scrollTop = body.scrollHeight;
+});
+</script>
+
 </body>
 </html>
