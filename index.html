@@ -77,6 +77,14 @@
             margin: 15px 0; 
         }
         
+        .hint-box {
+            background-color: #21262d;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 15px;
+            border-left: 3px solid #f0883e;
+        }
+        
         .cmd-table {
             width: 100%;
             border-collapse: collapse;
@@ -155,6 +163,7 @@
         .success { color: #2ea44f; font-weight: bold; }
         .error { color: #ff7b72; }
         .info { color: #58a6ff; }
+        .warning { color: #f0883e; }
         
         .submit-box {
             background-color: #1f242c;
@@ -177,12 +186,21 @@
     </div>
 
     <div class="tutorial-panel">
-        <h2 style="color: #0066cc; margin-top:0;">📚 Teoria: Comandos Essenciais</h2>
+        <h2 style="color: #0066cc; margin-top:0;">📚 Teoria: Navegação e Leitura</h2>
         
         <div class="mission-box">
             <strong>🎯 Missão:</strong><br>
-            Explore o sistema de arquivos. Use os comandos para navegar, listar e ler arquivos. 
-            Encontre o arquivo oculto e submeta a flag com <span class="badge-code">Submit-Flag VALOR</span>.
+            Explore o sistema de arquivos. Navegue até a pasta <span class="badge-code">Secrets</span>, 
+            encontre o arquivo oculto e descubra a flag ofuscada. Lembre-se: 
+            <span class="badge-code">galf</span> é "flag" ao contrário!
+        </div>
+
+        <div class="hint-box">
+            <strong>💡 Dicas:</strong><br>
+            • Use <span class="badge-code">cd Secrets</span> para entrar na pasta<br>
+            • Use <span class="badge-code">ls -Force</span> para ver arquivos ocultos<br>
+            • Use <span class="badge-code">cat</span> para ler o conteúdo<br>
+            • Preste atenção em arquivos começando com <span class="badge-code">.</span>
         </div>
 
         <h3 style="color: #58a6ff; margin-top: 20px;">15 Comandos PowerShell</h3>
@@ -208,8 +226,8 @@
 
         <div class="submit-box">
             🔐 <strong>Validação:</strong><br>
-            <span style="color: #58a6ff; font-family: monospace;">Submit-Flag CTF{...}</span><br>
-            <small style="color: #8b949e;">A flag só existe no servidor!</small>
+            <span style="color: #58a6ff; font-family: monospace;">Submit-Flag CTF{flag_...}</span><br>
+            <small style="color: #8b949e;">Inverta "galf" para obter a flag correta!</small>
         </div>
     </div>
 
@@ -231,13 +249,26 @@
 </div>
 
 <script>
-// Sistema de arquivos simulado (apenas para prática)
+// ═════════════════════════════════════════════════════════════════════════════
+// SISTEMA DE ARQUIVOS COM FLAG OFUSCADA
+// ═════════════════════════════════════════════════════════════════════════════
+
 const fileSystem = {
     'Documents': {
-        'readme.txt': 'Sistema de treinamento PowerShell.\nDica: Procure arquivos ocultos com ls -Force',
-        'notas.md': 'A flag está em um arquivo oculto.',
-        '.hidden': 'Arquivo oculto! Procure por "flag" no nome.',
-        '.flag.txt': 'A flag está no servidor. Use Submit-Flag.'
+        'readme.txt': 'Sistema de treino PowerShell v1.0\nDica: Explore a pasta Secrets com cd Secrets',
+        'notas.md': 'Arquivos importantes movidos para C:\\Users\\Level0\\Documents\\Secrets',
+        '.hidden': 'Procure na pasta Secrets. A flag está ofuscada.',
+        '.flag.txt': 'A flag real está no servidor. Dica: "galf" é ao contrário.',
+        'Secrets': {} // Pasta vazia inicialmente (será preenchida abaixo)
+    },
+    'Secrets': {
+        'config.json': '{"debug": false, "version": "1.0", "author": "admin"}',
+        'log.txt': '2026-06-19 10:00:01 - Sistema iniciado\n2026-06-19 10:00:05 - Nenhuma anomalia detectada\n2026-06-19 10:00:12 - Verificação completa\n2026-06-19 10:00:15 - Acesso ao arquivo .galf registrado',
+        'backup.zip': 'PK    ���N ���N ���N    ���N ���N ���N\n[Arquivo binário corrompido]',
+        'readme.old': 'Versão antiga do sistema.\nNada importante aqui.\nMova-se para outro arquivo.',
+        'data.csv': 'id,nome,status,permissao\n001,admin,ativo,total\n002,guest,inativo,leitura\n003,system,ativo,total\n004,operator,pendente,none',
+        'temp.txt': 'Arquivo temporário.\nSerá excluído em breve.',
+        '.galf': 'CTF{galf_p0w3rsh3ll_m4st3r_2026}'  // ← AQUI ESTÁ A FLAG OFUSCADA!
     }
 };
 
@@ -295,16 +326,24 @@ input.addEventListener('keydown', async function(e) {
     const args = tokens.slice(1);
     const lower = fullCmd.toLowerCase();
 
-    // Comandos do sistema de arquivos
+    // 1. Get-Location / pwd
     if (cmd === 'pwd' || cmd === 'get-location') {
         addOutput(`Path\n----\nC:\\Users\\Level0\\${currentDir}`);
     }
+    // 2. Set-Location / cd
     else if (cmd === 'cd' || cmd === 'set-location') {
         const target = args[0];
         if (!target || target === '.') {
             addOutput(`C:\\Users\\Level0\\${currentDir}`);
         } else if (target === '..') {
-            currentDir = 'Documents';
+            if (currentDir === 'Secrets') {
+                currentDir = 'Documents';
+                prompt.innerText = `PS C:\\Users\\Level0\\${currentDir}>`;
+            } else {
+                addOutput(`Set-Location: Já está na raiz.`);
+            }
+        } else if (target === 'Secrets' && currentDir === 'Documents') {
+            currentDir = 'Secrets';
             prompt.innerText = `PS C:\\Users\\Level0\\${currentDir}>`;
         } else if (fileSystem[target]) {
             currentDir = target;
@@ -313,24 +352,49 @@ input.addEventListener('keydown', async function(e) {
             addOutput(`Set-Location: Caminho '${target}' não existe.`);
         }
     }
+    // 3. Get-ChildItem / ls / dir
     else if (cmd === 'ls' || cmd === 'get-childitem' || cmd === 'dir') {
-        const showHidden = lower.includes('-force') || lower.includes('-a');
+        const showHidden = lower.includes('-force') || lower.includes('-a') || lower.includes('/a');
         let out = `    Diretório: C:\\Users\\Level0\\${currentDir}\n\n`;
         out += `Mode                LastWriteTime         Length Name\n`;
         out += `----                -------------         ------ ----\n`;
         
-        for (const [name, content] of Object.entries(fileSystem[currentDir])) {
-            if (name.startsWith('.') && !showHidden) continue;
+        const files = fileSystem[currentDir];
+        let hasHidden = false;
+        
+        for (const [name, content] of Object.entries(files)) {
+            if (name.startsWith('.')) {
+                hasHidden = true;
+                if (!showHidden) continue;
+            }
             out += `-a----       19/06/2026     11:00    ${content.length.toString().padStart(10)} ${name}\n`;
+        }
+        
+        if (hasHidden && !showHidden) {
+            out += `\n    [Use -Force para ver arquivos ocultos]`;
         }
         addOutput(out);
     }
+    // 4. Get-Content / cat / type
     else if (cmd === 'cat' || cmd === 'get-content' || cmd === 'type') {
         const fname = args.join(' ');
-        if (!fname) addOutput("Get-Content: Forneça o nome do arquivo.");
-        else if (fileSystem[currentDir][fname]) addOutput(fileSystem[currentDir][fname]);
-        else addOutput(`Get-Content: Arquivo '${fname}' não encontrado.`);
+        if (!fname) {
+            addOutput("Get-Content: Forneça o nome do arquivo.");
+        } else if (fileSystem[currentDir][fname]) {
+            const content = fileSystem[currentDir][fname];
+            addOutput(content);
+            
+            // Easter egg quando lê o .galf
+            if (fname === '.galf') {
+                setTimeout(() => {
+                    addOutput(`<span class="warning">⚠️  Dica: "galf" escrito ao contrário é...</span>`, true);
+                }, 100);
+            }
+        } else {
+            addOutput(`Get-Content: Arquivo '${fname}' não encontrado.`);
+        }
     }
+    // 5. Select-String / grep
     else if (cmd === 'grep' || cmd === 'select-string') {
         if (args.length < 2) {
             addOutput("Uso: Select-String -Pattern 'termo' -Path 'arquivo'");
@@ -339,76 +403,109 @@ input.addEventListener('keydown', async function(e) {
             const fname = args[args.length - 1];
             if (fileSystem[currentDir][fname]) {
                 const content = fileSystem[currentDir][fname];
-                addOutput(content.toLowerCase().includes(pattern.toLowerCase()) ? 
-                    `${fname}:1: ${content}` : "(nenhum resultado)");
+                const lines = content.split('\n');
+                let found = false;
+                let out = '';
+                lines.forEach((line, idx) => {
+                    if (line.toLowerCase().includes(pattern.toLowerCase())) {
+                        out += `${fname}:${idx+1}: ${line}\n`;
+                        found = true;
+                    }
+                });
+                addOutput(found ? out : "(nenhum resultado encontrado)");
             } else {
                 addOutput(`Arquivo '${fname}' não encontrado.`);
             }
         }
     }
+    // 6. Get-Process / ps
     else if (cmd === 'ps' || cmd === 'get-process') {
         addOutput("Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  ProcessName\n" +
                   "-------  ------    -----      -----     ------     --  -----------\n" +
                   "    432      28    45120      54210       1.24   1024  lsass\n" +
                   "    890      42    98210     112450       4.12   2048  svchost\n" +
-                  "    120      12     4120       8940       0.05   4312  powershell");
+                  "    120      12     4120       8940       0.05   4312  powershell\n" +
+                  "    256      18    12840      15670       0.42   8842  zeroday-monitor");
     }
+    // 7. Get-Service
     else if (cmd === 'get-service') {
         addOutput("Status   Name               DisplayName\n" +
                   "------   ----               -----------\n" +
                   "Running  WinRM              Windows Remote Management\n" +
                   "Running  ZeroDayAudit       ZeroDay Security Monitor\n" +
+                  "Running  SecretsGuard       Secrets Folder Protection\n" +
                   "Stopped  wuauserv           Windows Update");
     }
+    // 8. Get-Command
     else if (cmd === 'get-command') {
         addOutput("CommandType     Name                      Version\n" +
                   "-----------     ----                      -------\n" +
                   "Cmdlet          Get-ChildItem             7.0.0.0\n" +
                   "Cmdlet          Get-Content               7.0.0.0\n" +
+                  "Cmdlet          Get-Process               7.0.0.0\n" +
                   "Function        Submit-Flag               1.0.0");
     }
+    // 9. Get-Help / help
     else if (cmd === 'help' || cmd === 'man' || cmd === 'get-help') {
-        addOutput("Comandos: pwd, cd, ls, cat, grep, ps, Get-Service, Get-Command\n" +
-                  "          mkdir, cp, mv, rm, cls, Get-History, Submit-Flag\n\n" +
-                  "Dica: Use 'ls -Force' para ver arquivos ocultos.");
+        addOutput("Comandos disponíveis:\n" +
+                  "  Navegação: cd, pwd, ls, ls -Force\n" +
+                  "  Arquivos:  cat, grep, mkdir, cp, mv, rm\n" +
+                  "  Sistema:   ps, Get-Service, Get-Command\n" +
+                  "  Util:      cls, Get-History, help\n\n" +
+                  "  Submissão: Submit-Flag CTF{...}\n\n" +
+                  "Dica: Explore a pasta Secrets com 'cd Secrets'");
     }
+    // 10. New-Item / mkdir
     else if (cmd === 'mkdir' || cmd === 'new-item') {
         const name = args.join(' ');
         if (name) {
-            fileSystem[currentDir][name] = "Conteúdo criado.";
+            fileSystem[currentDir][name] = "Conteúdo criado pelo usuário.";
             addOutput(`d----  19/06/2026   11:00                ${name}`);
-        } else addOutput("New-Item: Especifique o nome.");
+        } else {
+            addOutput("New-Item: Especifique o nome do item.");
+        }
     }
+    // 11. Copy-Item / cp
     else if (cmd === 'cp' || cmd === 'copy-item') {
         if (args[0] && fileSystem[currentDir][args[0]]) {
             const dest = args[1] || 'copia_' + args[0];
             fileSystem[currentDir][dest] = fileSystem[currentDir][args[0]];
             addOutput(`[+] Copiado: ${args[0]} -> ${dest}`);
-        } else addOutput("Copy-Item: Arquivo não encontrado.");
+        } else {
+            addOutput("Copy-Item: Arquivo de origem não encontrado.");
+        }
     }
+    // 12. Move-Item / mv
     else if (cmd === 'mv' || cmd === 'move-item') {
         if (args[0] && args[1] && fileSystem[currentDir][args[0]]) {
             fileSystem[currentDir][args[1]] = fileSystem[currentDir][args[0]];
             delete fileSystem[currentDir][args[0]];
             addOutput(`[+] Movido: ${args[0]} -> ${args[1]}`);
-        } else addOutput("Move-Item: Parâmetros inválidos.");
+        } else {
+            addOutput("Move-Item: Parâmetros inválidos.");
+        }
     }
+    // 13. Remove-Item / rm
     else if (cmd === 'rm' || cmd === 'remove-item') {
         if (args[0] && fileSystem[currentDir][args[0]]) {
             delete fileSystem[currentDir][args[0]];
             addOutput(`[-] Removido: ${args[0]}`);
-        } else addOutput(`Remove-Item: '${args[0]}' não encontrado.`);
+        } else {
+            addOutput(`Remove-Item: '${args[0]}' não encontrado.`);
+        }
     }
+    // 14. Clear-Host / cls
     else if (cmd === 'cls' || cmd === 'clear' || cmd === 'clear-host') {
         body.querySelectorAll('.output-line').forEach(l => l.remove());
     }
+    // 15. Get-History
     else if (cmd === 'get-history') {
         let out = "  Id CommandLine\n  -- -----------\n";
         history.forEach((c, i) => out += `   ${i+1} ${c}\n`);
         addOutput(out);
     }
     // ═══════════════════════════════════════════════════════════════════════
-    // VALIDAÇÃO DA FLAG NO BACKEND (SEGURANÇA!)
+    // VALIDAÇÃO DA FLAG NO BACKEND
     // ═══════════════════════════════════════════════════════════════════════
     else if (cmd === 'submit-flag') {
         const flagValue = args.join(' ');
@@ -433,9 +530,13 @@ input.addEventListener('keydown', async function(e) {
                     }, 1500);
                 } else {
                     addOutput(`<span class="error">[-] ${data.message}</span>`, true);
+                    // Dica sutil se errar
+                    if (flagValue.includes('galf')) {
+                        addOutput(`<span class="warning">💡 Dica: Inverta "galf" para obter a flag correta!</span>`, true);
+                    }
                 }
             } catch (err) {
-                addOutput(`<span class="error">[!] Erro: ${err.message}</span>`, true);
+                addOutput(`<span class="error">[!] Erro de conexão: ${err.message}</span>`, true);
             }
         }
     }

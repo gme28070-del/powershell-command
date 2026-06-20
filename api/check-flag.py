@@ -5,7 +5,7 @@ import json
 # FLAGS NO SERVIDOR (NUNCA EXPOSTAS NO FRONTEND)
 # ═════════════════════════════════════════════════════════════════════════════
 FLAGS = {
-    "lvl0": "CTF{p0w3rsh3ll_m4st3r_2026}",
+    "lvl0": "CTF{flag_p0w3rsh3ll_m4st3r_2026}",  # ← AQUI: flag (não galf!)
     "lvl1": "CTF{g1t_g0t_1t_d0n3}",
     "lvl2": "CTF{s3rv1c3s_und3r_c0ntr0l}",
     "lvl3": "CTF{pr0c3ss_hunt3r}",
