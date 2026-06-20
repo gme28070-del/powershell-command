@@ -250,38 +250,38 @@
 
 <script>
 // ═════════════════════════════════════════════════════════════════════════════
-// SISTEMA DE ARQUIVOS COM FLAG OFUSCADA
+// SISTEMA DE ARQUIVOS COMPLETO (APENAS UMA DEFINIÇÃO!)
 // ═════════════════════════════════════════════════════════════════════════════
 
 const fileSystem = {
     'Documents': {
         // Arquivos README (distratores)
         'README.txt': 'Bem-vindo ao sistema!\nEste é um ambiente de treinamento.\nNada importante aqui.',
-        'readme.md': '# Documentação\n\n## Instalação\nExecute o instalador na pasta Downloads.\n\n## Configuração\nEdite o arquivo config.ini conforme necessário.',
-        'LEIAME.txt': 'Versão em português do README.\nMesmo conteúdo, idioma diferente.',
+        'readme.md': '# Documentacao\n\n## Instalacao\nExecute o instalador na pasta Downloads.\n\n## Configuracao\nEdite o arquivo config.ini conforme necessario.',
+        'LEIAME.txt': 'Versao em portugues do README.\nMesmo conteudo, idioma diferente.',
         
         // Logs (distratores)
-        'system.log': '2026-06-19 08:00:00 INFO: Sistema iniciado\n2026-06-19 08:00:15 INFO: Serviços carregados\n2026-06-19 08:00:30 WARN: Nenhum usuário logado\n2026-06-19 08:01:00 INFO: Monitoramento ativo',
+        'system.log': '2026-06-19 08:00:00 INFO: Sistema iniciado\n2026-06-19 08:00:15 INFO: Servicos carregados\n2026-06-19 08:00:30 WARN: Nenhum usuario logado\n2026-06-19 08:01:00 INFO: Monitoramento ativo',
         'error.log': '2026-06-19 09:15:23 ERROR: Falha ao conectar em 192.168.1.99\n2026-06-19 09:15:24 WARN: Tentativa 2...\n2026-06-19 09:15:26 INFO: Conectado com sucesso',
         'access.log': '127.0.0.1 - - [19/Jun/2026:10:00:00] "GET /index.html HTTP/1.1" 200\n127.0.0.1 - - [19/Jun/2026:10:00:05] "POST /login HTTP/1.1" 403\n127.0.0.1 - - [19/Jun/2026:10:00:10] "GET /admin HTTP/1.1" 404',
         
-        // Configurações (distratores)
+        // Configuracoes (distratores)
         'config.ini': '[Settings]\ndebug=false\nport=8080\nhost=localhost\n\n[Database]\nuser=admin\npass=********\nname=training_db',
         'settings.json': '{"theme": "dark", "lang": "pt-BR", "notifications": true, "auto_update": false}',
-        '.env': 'API_KEY=sk-1234567890abcdef\nSECRET_KEY=super_secret_key_123\nDB_PASSWORD=password123\n\n# Não commitar este arquivo!',
+        '.env': 'API_KEY=sk-1234567890abcdef\nSECRET_KEY=super_secret_key_123\nDB_PASSWORD=password123\n\n# Nao commitar este arquivo!',
         
         // Documentos falsos (distratores)
-        'relatorio.pdf': '[Arquivo PDF binário - 2.4MB]\nNão legível via terminal.',
+        'relatorio.pdf': '[Arquivo PDF binario - 2.4MB]\nNao legivel via terminal.',
         'dados.xlsx': '[Planilha Excel - 856KB]\nUse software apropriado para abrir.',
-        'imagem.png': '[Imagem PNG - 1.2MB]\nVisualização não suportada no terminal.',
-        'backup.tar.gz': '[Arquivo compactado - 45MB]\nContém backups antigos do sistema.',
+        'imagem.png': '[Imagem PNG - 1.2MB]\nVisualizacao nao suportada no terminal.',
+        'backup.tar.gz': '[Arquivo compactado - 45MB]\nContem backups antigos do sistema.',
         
         // Scripts falsos (distratores)
         'script.bat': '@echo off\necho Executando manutencao...\nping 127.0.0.1 -n 5 > nul\necho Concluido!',
         'deploy.ps1': '# Script de deploy\nWrite-Host "Iniciando deploy..."\n# TODO: Implementar deploy automatico\nWrite-Host "Deploy manual necessario"',
         'setup.sh': '#!/bin/bash\n# Script de instalacao Linux\necho "Instalando dependencias..."\nsleep 2\necho "Concluido!"',
         
-        // Notas e anotações (algumas com pistas falsas)
+        // Notas e anotacoes (algumas com pistas falsas)
         'notas.txt': 'Anotacoes do dia:\n- Verificar servidor as 14h\n- Atualizar firewall\n- TROCAR SENHA DO ADMIN!!!\n\nFlag esta em algum lugar...',
         'anotacoes.md': '## TODO\n- [x] Configurar rede\n- [ ] Atualizar antivirus\n- [ ] Verificar logs de erro\n\nDica: Procure em arquivos ocultos.',
         'lembretes.txt': 'LEMBRETES IMPORTANTES:\n1. Nao esquecer de fazer backup\n2. Senha do wifi: Z3r0D@y2026\n3. Flag nao esta aqui, continue procurando...',
@@ -298,7 +298,7 @@ const fileSystem = {
         '.bashrc': '# Configuracao do bash\nalias ll="ls -la"\nalias ..="cd .."',
         '.flag.txt': 'A flag real esta no servidor.\nDica: "galf" e ao contrario.\n\nVa para a pasta Secrets.',
         
-        // Pasta Secrets (vazia no Documents, cheia no objeto separado)
+        // Pasta Secrets (referencia - dados estao no objeto separado abaixo)
         'Secrets': {}
     },
     
@@ -307,7 +307,7 @@ const fileSystem = {
         'config.json': '{"debug": false, "version": "1.0.3", "author": "admin", "build": "2026.06.19"}',
         'log.txt': '2026-06-19 10:00:01 - Sistema iniciado\n2026-06-19 10:00:05 - Nenhuma anomalia detectada\n2026-06-19 10:00:12 - Verificacao completa\n2026-06-19 10:00:15 - Acesso ao arquivo .galf registrado\n2026-06-19 10:00:20 - Nenhuma flag encontrada',
         'debug.log': 'DEBUG: Inicializando modulo de seguranca\nDEBUG: Carregando configuracoes\nDEBUG: Modo seguro ATIVADO\nDEBUG: Flag protegida por ofuscacao',
-        'backup.zip': 'PK    ���N ���N ���N    ���N ���N ���N\n[Arquivo binario corrompido - 15MB]',
+        'backup.zip': '[Arquivo ZIP binario - 15MB]\nContem dados antigos.',
         'data.old': 'Dados antigos - versao 1.0\nNada relevante para o desafio atual.',
         'readme.old': 'Versao antiga do sistema.\nNada importante aqui.\nMova-se para outro arquivo.',
         'temp.tmp': 'Arquivo temporario gerado automaticamente.\nPode ser excluido sem problemas.',
@@ -334,7 +334,7 @@ const fileSystem = {
         'key.pem': '-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEA... [CHAVE FALSA] ...\n-----END RSA PRIVATE KEY-----',
         'credentials.xml': '<?xml version="1.0"?>\n<creds>\n  <user>admin</user>\n  <pass>fake_password_123</pass>\n</creds>',
         'secret.key': '[Chave de criptografia - 256 bits]\nNao e a flag que voce procura.',
-        'token.jwt': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c\n[Token JWT invalido]',
+        'token.jwt': '[Token JWT invalido]\nNao contem a flag.',
         
         // Arquivos ocultos (apenas .galf e outros distrator)
         '.hidden': 'Voce encontrou um arquivo oculto!\nMas este nao e o importante...\nProcure outro comecando com ponto.',
@@ -343,18 +343,7 @@ const fileSystem = {
         '.viminfo': '[Historico do vim]\nNada util aqui.',
         
         // A FLAG OFUSCADA (a unica que importa!)
-        '.galf': 'Quase lá, mas isso nem é Secret diretory'
-    }
-};
-    },
-    'Secrets': {
-        'config.json': '{"debug": false, "version": "1.0", "author": "admin"}',
-        'log.txt': '2026-06-19 10:00:01 - Sistema iniciado\n2026-06-19 10:00:05 - Nenhuma anomalia detectada\n2026-06-19 10:00:12 - Verificação completa\n2026-06-19 10:00:15 - Acesso ao arquivo .galf registrado',
-        'backup.zip': 'P   ���N ���N ���N    ���N ���N ���N\n[Arquivo binário corrompido]',
-        'readme.old': 'Versão antiga do sistema.\nNada importante aqui.\nMova-se para outro arquivo.',
-        'data.csv': 'id,nome,status,permissao\n001,admin,ativo,total\n002,guest,inativo,leitura\n003,system,ativo,total\n004,operator,pendente,none',
-        'temp.txt': 'Arquivo temporário.\nSerá excluído em breve.',
-        '.galf': 'CTF{galf_p0w3rsh3ll_m4st3r_2026}'  // ← AQUI ESTÁ A FLAG OFUSCADA!
+        '.galf': 'CTF{galf_p0w3rsh3ll_m4st3r_2026}'
     }
 };
 
@@ -426,7 +415,7 @@ input.addEventListener('keydown', async function(e) {
                 currentDir = 'Documents';
                 prompt.innerText = `PS C:\\Users\\Level0\\${currentDir}>`;
             } else {
-                addOutput(`Set-Location: Já está na raiz.`);
+                addOutput(`Set-Location: Ja esta na raiz.`);
             }
         } else if (target === 'Secrets' && currentDir === 'Documents') {
             currentDir = 'Secrets';
@@ -435,13 +424,13 @@ input.addEventListener('keydown', async function(e) {
             currentDir = target;
             prompt.innerText = `PS C:\\Users\\Level0\\${currentDir}>`;
         } else {
-            addOutput(`Set-Location: Caminho '${target}' não existe.`);
+            addOutput(`Set-Location: Caminho '${target}' nao existe.`);
         }
     }
     // 3. Get-ChildItem / ls / dir
     else if (cmd === 'ls' || cmd === 'get-childitem' || cmd === 'dir') {
         const showHidden = lower.includes('-force') || lower.includes('-a') || lower.includes('/a');
-        let out = `    Diretório: C:\\Users\\Level0\\${currentDir}\n\n`;
+        let out = `    Diretorio: C:\\Users\\Level0\\${currentDir}\n\n`;
         out += `Mode                LastWriteTime         Length Name\n`;
         out += `----                -------------         ------ ----\n`;
         
@@ -465,19 +454,19 @@ input.addEventListener('keydown', async function(e) {
     else if (cmd === 'cat' || cmd === 'get-content' || cmd === 'type') {
         const fname = args.join(' ');
         if (!fname) {
-            addOutput("Get-Content: Forneça o nome do arquivo.");
+            addOutput("Get-Content: Forneca o nome do arquivo.");
         } else if (fileSystem[currentDir][fname]) {
             const content = fileSystem[currentDir][fname];
             addOutput(content);
             
-            // Easter egg quando lê o .galf
+            // Easter egg quando le o .galf
             if (fname === '.galf') {
                 setTimeout(() => {
-                    addOutput(`<span class="warning">⚠️  Dica: "galf" escrito ao contrário é...</span>`, true);
+                    addOutput(`⚠️  Dica: "galf" escrito ao contrario e...`, false);
                 }, 100);
             }
         } else {
-            addOutput(`Get-Content: Arquivo '${fname}' não encontrado.`);
+            addOutput(`Get-Content: Arquivo '${fname}' nao encontrado.`);
         }
     }
     // 5. Select-String / grep
@@ -500,7 +489,7 @@ input.addEventListener('keydown', async function(e) {
                 });
                 addOutput(found ? out : "(nenhum resultado encontrado)");
             } else {
-                addOutput(`Arquivo '${fname}' não encontrado.`);
+                addOutput(`Arquivo '${fname}' nao encontrado.`);
             }
         }
     }
@@ -533,19 +522,19 @@ input.addEventListener('keydown', async function(e) {
     }
     // 9. Get-Help / help
     else if (cmd === 'help' || cmd === 'man' || cmd === 'get-help') {
-        addOutput("Comandos disponíveis:\n" +
-                  "  Navegação: cd, pwd, ls, ls -Force\n" +
+        addOutput("Comandos disponiveis:\n" +
+                  "  Navegacao: cd, pwd, ls, ls -Force\n" +
                   "  Arquivos:  cat, grep, mkdir, cp, mv, rm\n" +
                   "  Sistema:   ps, Get-Service, Get-Command\n" +
                   "  Util:      cls, Get-History, help\n\n" +
-                  "  Submissão: Submit-Flag CTF{...}\n\n" +
+                  "  Submissao: Submit-Flag CTF{...}\n\n" +
                   "Dica: Explore a pasta Secrets com 'cd Secrets'");
     }
     // 10. New-Item / mkdir
     else if (cmd === 'mkdir' || cmd === 'new-item') {
         const name = args.join(' ');
         if (name) {
-            fileSystem[currentDir][name] = "Conteúdo criado pelo usuário.";
+            fileSystem[currentDir][name] = "Conteudo criado pelo usuario.";
             addOutput(`d----  19/06/2026   11:00                ${name}`);
         } else {
             addOutput("New-Item: Especifique o nome do item.");
@@ -558,7 +547,7 @@ input.addEventListener('keydown', async function(e) {
             fileSystem[currentDir][dest] = fileSystem[currentDir][args[0]];
             addOutput(`[+] Copiado: ${args[0]} -> ${dest}`);
         } else {
-            addOutput("Copy-Item: Arquivo de origem não encontrado.");
+            addOutput("Copy-Item: Arquivo de origem nao encontrado.");
         }
     }
     // 12. Move-Item / mv
@@ -568,7 +557,7 @@ input.addEventListener('keydown', async function(e) {
             delete fileSystem[currentDir][args[0]];
             addOutput(`[+] Movido: ${args[0]} -> ${args[1]}`);
         } else {
-            addOutput("Move-Item: Parâmetros inválidos.");
+            addOutput("Move-Item: Parametros invalidos.");
         }
     }
     // 13. Remove-Item / rm
@@ -577,7 +566,7 @@ input.addEventListener('keydown', async function(e) {
             delete fileSystem[currentDir][args[0]];
             addOutput(`[-] Removido: ${args[0]}`);
         } else {
-            addOutput(`Remove-Item: '${args[0]}' não encontrado.`);
+            addOutput(`Remove-Item: '${args[0]}' nao encontrado.`);
         }
     }
     // 14. Clear-Host / cls
@@ -590,13 +579,11 @@ input.addEventListener('keydown', async function(e) {
         history.forEach((c, i) => out += `   ${i+1} ${c}\n`);
         addOutput(out);
     }
-    // ═══════════════════════════════════════════════════════════════════════
-    // VALIDAÇÃO DA FLAG NO BACKEND
-    // ═══════════════════════════════════════════════════════════════════════
+    // VALIDACAO DA FLAG NO BACKEND
     else if (cmd === 'submit-flag') {
         const flagValue = args.join(' ');
         if (!flagValue) {
-            addOutput(`<span class="error">[-] Uso: Submit-Flag CTF{...}</span>`, true);
+            addOutput(`[-] Uso: Submit-Flag CTF{...}`, false);
         } else {
             addOutput("[*] Validando no servidor...");
             
@@ -610,24 +597,23 @@ input.addEventListener('keydown', async function(e) {
                 const data = await res.json();
                 
                 if (data.success) {
-                    addOutput(`<span class="success">[+] ${data.message}</span>`, true);
+                    addOutput(`[+] ${data.message}`, false);
                     setTimeout(() => {
                         if (data.next_level) window.location.href = data.next_level;
                     }, 1500);
                 } else {
-                    addOutput(`<span class="error">[-] ${data.message}</span>`, true);
-                    // Dica sutil se errar
+                    addOutput(`[-] ${data.message}`, false);
                     if (flagValue.includes('galf')) {
-                        addOutput(`<span class="warning">💡 Dica: Inverta "galf" para obter a flag correta!</span>`, true);
+                        addOutput(`💡 Dica: Inverta "galf" para obter a flag correta!`, false);
                     }
                 }
             } catch (err) {
-                addOutput(`<span class="error">[!] Erro de conexão: ${err.message}</span>`, true);
+                addOutput(`[!] Erro de conexao: ${err.message}`, false);
             }
         }
     }
     else {
-        addOutput(`<span class="error">'${cmd}' não reconhecido. Tente 'help'.</span>`, true);
+        addOutput(`'${cmd}' nao reconhecido. Tente 'help'.`, false);
     }
 
     body.scrollTop = body.scrollHeight;
