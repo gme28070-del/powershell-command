@@ -255,16 +255,102 @@
 
 const fileSystem = {
     'Documents': {
-        'readme.txt': 'Sistema de treino PowerShell v1.0\nDica: Explore a pasta Secrets com cd Secrets',
-        'notas.md': 'Arquivos importantes movidos para C:\\Users\\Level0\\Documents\\Secrets',
-        '.hidden': 'Procure na pasta Secrets. A flag está ofuscada.',
-        '.flag.txt': 'A flag real está no servidor. Dica: "galf" é ao contrário.',
-        'Secrets': {} // Pasta vazia inicialmente (será preenchida abaixo)
+        // Arquivos README (distratores)
+        'README.txt': 'Bem-vindo ao sistema!\nEste é um ambiente de treinamento.\nNada importante aqui.',
+        'readme.md': '# Documentação\n\n## Instalação\nExecute o instalador na pasta Downloads.\n\n## Configuração\nEdite o arquivo config.ini conforme necessário.',
+        'LEIAME.txt': 'Versão em português do README.\nMesmo conteúdo, idioma diferente.',
+        
+        // Logs (distratores)
+        'system.log': '2026-06-19 08:00:00 INFO: Sistema iniciado\n2026-06-19 08:00:15 INFO: Serviços carregados\n2026-06-19 08:00:30 WARN: Nenhum usuário logado\n2026-06-19 08:01:00 INFO: Monitoramento ativo',
+        'error.log': '2026-06-19 09:15:23 ERROR: Falha ao conectar em 192.168.1.99\n2026-06-19 09:15:24 WARN: Tentativa 2...\n2026-06-19 09:15:26 INFO: Conectado com sucesso',
+        'access.log': '127.0.0.1 - - [19/Jun/2026:10:00:00] "GET /index.html HTTP/1.1" 200\n127.0.0.1 - - [19/Jun/2026:10:00:05] "POST /login HTTP/1.1" 403\n127.0.0.1 - - [19/Jun/2026:10:00:10] "GET /admin HTTP/1.1" 404',
+        
+        // Configurações (distratores)
+        'config.ini': '[Settings]\ndebug=false\nport=8080\nhost=localhost\n\n[Database]\nuser=admin\npass=********\nname=training_db',
+        'settings.json': '{"theme": "dark", "lang": "pt-BR", "notifications": true, "auto_update": false}',
+        '.env': 'API_KEY=sk-1234567890abcdef\nSECRET_KEY=super_secret_key_123\nDB_PASSWORD=password123\n\n# Não commitar este arquivo!',
+        
+        // Documentos falsos (distratores)
+        'relatorio.pdf': '[Arquivo PDF binário - 2.4MB]\nNão legível via terminal.',
+        'dados.xlsx': '[Planilha Excel - 856KB]\nUse software apropriado para abrir.',
+        'imagem.png': '[Imagem PNG - 1.2MB]\nVisualização não suportada no terminal.',
+        'backup.tar.gz': '[Arquivo compactado - 45MB]\nContém backups antigos do sistema.',
+        
+        // Scripts falsos (distratores)
+        'script.bat': '@echo off\necho Executando manutencao...\nping 127.0.0.1 -n 5 > nul\necho Concluido!',
+        'deploy.ps1': '# Script de deploy\nWrite-Host "Iniciando deploy..."\n# TODO: Implementar deploy automatico\nWrite-Host "Deploy manual necessario"',
+        'setup.sh': '#!/bin/bash\n# Script de instalacao Linux\necho "Instalando dependencias..."\nsleep 2\necho "Concluido!"',
+        
+        // Notas e anotações (algumas com pistas falsas)
+        'notas.txt': 'Anotacoes do dia:\n- Verificar servidor as 14h\n- Atualizar firewall\n- TROCAR SENHA DO ADMIN!!!\n\nFlag esta em algum lugar...',
+        'anotacoes.md': '## TODO\n- [x] Configurar rede\n- [ ] Atualizar antivirus\n- [ ] Verificar logs de erro\n\nDica: Procure em arquivos ocultos.',
+        'lembretes.txt': 'LEMBRETES IMPORTANTES:\n1. Nao esquecer de fazer backup\n2. Senha do wifi: Z3r0D@y2026\n3. Flag nao esta aqui, continue procurando...',
+        
+        // Arquivos com nomes enganosos
+        'flag.txt': 'HAHA! Voce caiu na armadilha!\nEsta nao e a flag real.\nTente novamente.',
+        'FLAG.TXT': 'Outra armadilha!\nCase sensitive nao funciona aqui.',
+        'password.txt': 'admin:123456\nguest:guest\noperator:operator123\n\nSenhas padrao - nao usar em producao!',
+        'senhas.txt': 'root:toor\nadmin:password\nuser:user123\n\nTROCAR URGENTEMENTE!',
+        
+        // Arquivos ocultos (apenas um com pista real)
+        '.hidden': 'Procure na pasta Secrets. A flag esta ofuscada.',
+        '.config': '[Arquivo de configuracao oculto]\nNada util aqui.',
+        '.bashrc': '# Configuracao do bash\nalias ll="ls -la"\nalias ..="cd .."',
+        '.flag.txt': 'A flag real esta no servidor.\nDica: "galf" e ao contrario.\n\nVa para a pasta Secrets.',
+        
+        // Pasta Secrets (vazia no Documents, cheia no objeto separado)
+        'Secrets': {}
+    },
+    
+    'Secrets': {
+        // Muitos arquivos decoy
+        'config.json': '{"debug": false, "version": "1.0.3", "author": "admin", "build": "2026.06.19"}',
+        'log.txt': '2026-06-19 10:00:01 - Sistema iniciado\n2026-06-19 10:00:05 - Nenhuma anomalia detectada\n2026-06-19 10:00:12 - Verificacao completa\n2026-06-19 10:00:15 - Acesso ao arquivo .galf registrado\n2026-06-19 10:00:20 - Nenhuma flag encontrada',
+        'debug.log': 'DEBUG: Inicializando modulo de seguranca\nDEBUG: Carregando configuracoes\nDEBUG: Modo seguro ATIVADO\nDEBUG: Flag protegida por ofuscacao',
+        'backup.zip': 'PK    ���N ���N ���N    ���N ���N ���N\n[Arquivo binario corrompido - 15MB]',
+        'data.old': 'Dados antigos - versao 1.0\nNada relevante para o desafio atual.',
+        'readme.old': 'Versao antiga do sistema.\nNada importante aqui.\nMova-se para outro arquivo.',
+        'temp.tmp': 'Arquivo temporario gerado automaticamente.\nPode ser excluido sem problemas.',
+        'cache.dat': '[Dados em cache - binario]\nNao legivel em formato texto.',
+        
+        // Planilhas e dados falsos
+        'data.csv': 'id,nome,status,permissao,nivel\n001,admin,ativo,total,0\n002,guest,inativo,leitura,1\n003,system,ativo,total,0\n004,operator,pendente,none,2\n005,hacker,bloqueado,nenhuma,999\n006,flag,oculto,secreto,???',
+        'users.db': '[Banco de dados SQLite - 4KB]\nTabela: users\nTabela: flags (vazia)',
+        'index.idx': '[Indice de busca]\nTermos: config, log, backup, data\nNenhum termo "flag" encontrado.',
+        
+        // Scripts que nao fazem nada
+        'run.bat': '@echo off\necho Processando...\ntimeout /t 2 >nul\necho Nada encontrado.\npause',
+        'check.ps1': '# Script de verificacao\n$files = Get-ChildItem\nWrite-Host "Arquivos encontrados: $($files.Count)"\nWrite-Host "Nenhuma flag visivel."',
+        'scan.sh': '#!/bin/bash\necho "Escaneando..."\nfor f in *; do\n  echo "Verificado: $f"\ndone\necho "Scan completo. Nada suspeito."',
+        
+        // Mais arquivos de texto inuteis
+        'info.txt': 'Informacoes do sistema:\n- OS: Windows Server 2026\n- Kernel: 10.0.26100\n- PowerShell: 7.4.2\n- Status: Seguro',
+        'version.txt': 'Versao 1.0.0\nBuild 2026.06.19.001\nCompilado em: 2026-06-19 00:00:00\n',
+        'notes.txt': 'Notas do desenvolvedor:\n- Implementar criptografia\n- Adicionar mais niveis\n- Melhorar ofuscacao da flag',
+        'todo.txt': '- [x] Criar pasta Secrets\n- [x] Adicionar arquivos decoy\n- [ ] Testar seguranca\n- [ ] Deploy em producao',
+        
+        // Arquivos com nomes enganosos na pasta Secrets
+        'password.txt': 'Senha do nivel 1: nao_e_essa\nSenha do nivel 2: continue_tentando\nSenha do nivel 3: voce_esta_perto\nSenha real: ???',
+        'key.pem': '-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEA... [CHAVE FALSA] ...\n-----END RSA PRIVATE KEY-----',
+        'credentials.xml': '<?xml version="1.0"?>\n<creds>\n  <user>admin</user>\n  <pass>fake_password_123</pass>\n</creds>',
+        'secret.key': '[Chave de criptografia - 256 bits]\nNao e a flag que voce procura.',
+        'token.jwt': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c\n[Token JWT invalido]',
+        
+        // Arquivos ocultos (apenas .galf e outros distrator)
+        '.hidden': 'Voce encontrou um arquivo oculto!\nMas este nao e o importante...\nProcure outro comecando com ponto.',
+        '.gitignore': '*.log\n*.tmp\n*.bak\nnode_modules/\n.env',
+        '.bash_history': 'cd Secrets\nls -la\ncat readme.old\ncat config.json\nexit',
+        '.viminfo': '[Historico do vim]\nNada util aqui.',
+        
+        // A FLAG OFUSCADA (a unica que importa!)
+        '.galf': 'Quase lá, mas isso nem é Secret diretory'
+    }
+};
     },
     'Secrets': {
         'config.json': '{"debug": false, "version": "1.0", "author": "admin"}',
         'log.txt': '2026-06-19 10:00:01 - Sistema iniciado\n2026-06-19 10:00:05 - Nenhuma anomalia detectada\n2026-06-19 10:00:12 - Verificação completa\n2026-06-19 10:00:15 - Acesso ao arquivo .galf registrado',
-        'backup.zip': 'PK    ���N ���N ���N    ���N ���N ���N\n[Arquivo binário corrompido]',
+        'backup.zip': 'P   ���N ���N ���N    ���N ���N ���N\n[Arquivo binário corrompido]',
         'readme.old': 'Versão antiga do sistema.\nNada importante aqui.\nMova-se para outro arquivo.',
         'data.csv': 'id,nome,status,permissao\n001,admin,ativo,total\n002,guest,inativo,leitura\n003,system,ativo,total\n004,operator,pendente,none',
         'temp.txt': 'Arquivo temporário.\nSerá excluído em breve.',
